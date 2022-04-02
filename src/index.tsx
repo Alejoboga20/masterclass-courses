@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import { App } from './App';
+import './styles/index.css';
 
-ReactDOM.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
-	document.getElementById('root')
-);
+const container = document.getElementById('root') as Element;
+const root = ReactDOMClient.createRoot(container);
+
+root.render(<App />);
+
+//Update Render because of react 18: https://github.com/reactwg/react-18/discussions/5

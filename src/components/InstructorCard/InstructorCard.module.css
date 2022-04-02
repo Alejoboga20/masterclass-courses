@@ -1,0 +1,19 @@
+.instructor__container {
+	display: flex;
+	margin: 16px 20%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.3s;
+}
+
+.instructor__container img {
+	width: 100%;
+	height: 100%;
+}
+
+.instructor__text {
+	padding: 8px;
+}
+
+.instructor__title {
+	margin-top: 8px;
+}
