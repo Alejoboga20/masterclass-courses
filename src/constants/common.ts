@@ -5,4 +5,5 @@ export const routePaths = {
 
 export const endpoints = {
 	courses: '/courses',
+	favorite: '/favorite',
 };
