@@ -1,9 +1,11 @@
+import Heart from 'assets/heart.png';
 import styles from './InstructorCard.module.css';
 
 export const InstructorCard = ({
 	title,
 	instructor_name,
 	instructor_image_url,
+	favorite,
 }: IntructorCardProps) => {
 	return (
 		<div className={styles.instructor__container}>
@@ -16,6 +18,12 @@ export const InstructorCard = ({
 
 				<p className={styles.instructor__title}>{title}</p>
 			</div>
+
+			{favorite && (
+				<div className={styles.instructor__fav}>
+					<img src={Heart} alt='FavIcon' />
+				</div>
+			)}
 		</div>
 	);
 };
