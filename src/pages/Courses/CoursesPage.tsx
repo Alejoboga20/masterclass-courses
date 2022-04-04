@@ -1,20 +1,22 @@
-import { InstructorCard } from 'components';
-import { useCourses } from '../../hooks/useCourses';
+import { useContext } from 'react';
+import { Header, InstructorCard, Switch } from 'components';
+import { CoursesContext } from 'context/CoursesContext';
 
 export const CoursesPage = () => {
-	const { instructors, isLoading } = useCourses();
+	const { instructors, isLoading, isOnlyFavorites, favInstructors, handleOnChange } =
+		useContext(CoursesContext);
+
+	const listToRender = isOnlyFavorites ? favInstructors : instructors;
 
 	if (isLoading) return <p>Loading...</p>;
 
 	return (
-		<div className='instructors'>
-			<h1>Instructors</h1>
-			<hr />
-			<div className='instructors__list'>
-				{instructors.map((instructor) => (
-					<InstructorCard {...instructor} key={instructor.id} />
-				))}
-			</div>
-		</div>
+		<>
+			<Header />
+			<Switch onChange={handleOnChange} checked={isOnlyFavorites} />
+			{listToRender.map((instructor) => (
+				<InstructorCard {...instructor} key={instructor.id} />
+			))}
+		</>
 	);
 };
