@@ -6,16 +6,8 @@ import client from 'api/coursesApi';
 export const useCourses = () => {
 	const [coursesState, setCoursesState] = useState<CoursesState>({
 		instructors: [],
-		isOnlyFavorites: false,
 		isLoading: true,
 	});
-
-	const handleOnChange = () => {
-		setCoursesState(({ isOnlyFavorites: prevChecked }) => ({
-			...coursesState,
-			isOnlyFavorites: !prevChecked,
-		}));
-	};
 
 	const loadData = async () => {
 		try {
@@ -40,11 +32,10 @@ export const useCourses = () => {
 		loadData();
 	}, []);
 
-	return { ...coursesState, handleOnChange, setCoursesState };
+	return { ...coursesState, setCoursesState };
 };
 
 interface CoursesState {
 	instructors: GetCoursesResponse[];
 	isLoading: boolean;
-	isOnlyFavorites: boolean;
 }

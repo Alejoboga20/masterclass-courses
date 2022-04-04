@@ -7,3 +7,26 @@
 	font-size: 32px;
 	margin-bottom: 8px;
 }
+
+.header__navigation {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin: 0 10%;
+}
+
+.header__navigation a {
+	display: inline-block;
+	margin-left: 16px;
+
+	text-decoration: none;
+	color: black;
+}
+
+.header__navigation a:hover {
+	color: #ff1a66;
+}
+
+.header__navigation a:active {
+	color: #ff1a66;
+}
