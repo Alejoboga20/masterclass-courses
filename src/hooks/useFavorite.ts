@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { endpoints } from 'constants/common';
 import { SetFavoriteResponse } from 'interfaces/Favorites';
 import client from 'api/coursesApi';
 
 export const useFavorite = (favorite: boolean, id: number) => {
-	const [isFavorite, setIsFavorite] = useState(favorite);
+	const [isFavorite, setIsFavorite] = useState(false);
 
 	const handleOnClick = () => (isFavorite ? handleDeleteFavorite() : handleSetFavorite());
 
@@ -33,6 +33,10 @@ export const useFavorite = (favorite: boolean, id: number) => {
 			throw new Error(JSON.stringify(e, null, 2));
 		}
 	};
+
+	useEffect(() => {
+		setIsFavorite(favorite);
+	}, [favorite]);
 
 	return { isFavorite, handleOnClick };
 };
