@@ -3,10 +3,11 @@ import { Header, InstructorCard, Switch } from 'components';
 import { CoursesContext } from 'context/CoursesContext';
 
 export const CoursesPage = () => {
-	const { instructors, isLoading, isOnlyFavorites, favInstructors, handleOnChange } =
-		useContext(CoursesContext);
+	const { instructors, isLoading, isOnlyFavorites, handleOnChange } = useContext(CoursesContext);
 
-	const listToRender = isOnlyFavorites ? favInstructors : instructors;
+	const listToRender = isOnlyFavorites
+		? instructors.filter((instructor) => instructor.favorite === true)
+		: instructors;
 
 	if (isLoading) return <p>Loading...</p>;
 

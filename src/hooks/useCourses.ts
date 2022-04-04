@@ -1,12 +1,11 @@
 import { GetCoursesResponse } from 'interfaces/Courses';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { endpoints } from 'constants/common';
 import client from 'api/coursesApi';
 
 export const useCourses = () => {
 	const [coursesState, setCoursesState] = useState<CoursesState>({
 		instructors: [],
-		favInstructors: [],
 		isOnlyFavorites: false,
 		isLoading: true,
 	});
@@ -30,7 +29,6 @@ export const useCourses = () => {
 			setCoursesState({
 				...coursesState,
 				instructors: data,
-				favInstructors: data.filter((item) => item.favorite),
 				isLoading: false,
 			});
 		} catch (e) {
@@ -47,7 +45,6 @@ export const useCourses = () => {
 
 interface CoursesState {
 	instructors: GetCoursesResponse[];
-	favInstructors: GetCoursesResponse[];
 	isLoading: boolean;
 	isOnlyFavorites: boolean;
 }
