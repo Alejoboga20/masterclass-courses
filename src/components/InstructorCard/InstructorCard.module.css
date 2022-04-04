@@ -1,8 +1,14 @@
 .instructor__container {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	cursor: pointer;
 	display: flex;
 	margin: 16px 20%;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	position: relative;
 	transition: 0.3s;
+}
+
+.instructor__container:hover {
+	background-color: #ff1a6633;
 }
 
 .instructor__container img {
@@ -16,4 +22,12 @@
 
 .instructor__title {
 	margin-top: 8px;
+}
+
+.instructor__fav {
+	position: absolute;
+	right: 0;
+	width: 32px;
+	height: 32px;
+	margin: 8px;
 }
