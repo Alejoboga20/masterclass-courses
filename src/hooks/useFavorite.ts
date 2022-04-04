@@ -1,10 +1,19 @@
-import { useEffect, useState } from 'react';
-import { endpoints } from 'constants/common';
+import { useContext, useEffect, useState } from 'react';
 import { SetFavoriteResponse } from 'interfaces/Favorites';
+import { CoursesContext } from 'context/CoursesContext';
+import { IntructorCardProps } from 'components/InstructorCard/InstructorCard';
+import { endpoints } from 'constants/common';
 import client from 'api/coursesApi';
 
-export const useFavorite = (favorite: boolean, id: number) => {
+export const useFavorite = ({
+	favorite,
+	id,
+	instructor_image_url,
+	instructor_name,
+	title,
+}: IntructorCardProps) => {
 	const [isFavorite, setIsFavorite] = useState(false);
+	const { setCoursesState, instructors, favInstructors } = useContext(CoursesContext);
 
 	const handleOnClick = () => (isFavorite ? handleDeleteFavorite() : handleSetFavorite());
 
@@ -14,6 +23,16 @@ export const useFavorite = (favorite: boolean, id: number) => {
 				course_id: id,
 				email: process.env.REACT_APP_EMAIL,
 			});
+			setCoursesState((prevState) => ({
+				...prevState,
+				favInstructors: favInstructors.concat({
+					favorite,
+					id,
+					instructor_image_url,
+					instructor_name,
+					title,
+				}),
+			}));
 			setIsFavorite(true);
 		} catch (e) {
 			throw new Error(JSON.stringify(e, null, 2));
@@ -28,6 +47,14 @@ export const useFavorite = (favorite: boolean, id: number) => {
 					email: process.env.REACT_APP_EMAIL,
 				},
 			});
+
+			setCoursesState((prevState) => ({
+				...prevState,
+				favInstructors: favInstructors.filter((instructor) => instructor.id !== id),
+				instructors: instructors.map((instructor) =>
+					instructor.id === id ? { ...instructor, favorite: false } : instructor
+				),
+			}));
 			setIsFavorite(false);
 		} catch (e) {
 			throw new Error(JSON.stringify(e, null, 2));
