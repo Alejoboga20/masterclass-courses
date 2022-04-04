@@ -17,11 +17,18 @@
 }
 
 .instructor__text {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	padding: 8px;
 }
 
 .instructor__title {
 	margin-top: 8px;
+}
+
+.instructor__alert {
+	color: red;
 }
 
 .instructor__fav {
