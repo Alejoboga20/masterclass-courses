@@ -9,81 +9,43 @@ export const useFavorite = (favorite: boolean, id: number) => {
 		isFavorite: false,
 		isLoading: false,
 	});
-
-	const { setCoursesState, instructors } = useContext(CoursesContext);
 	const { isFavorite } = favoriteState;
 
-	const handleOnClick = () => (isFavorite ? handleDeleteFavorite() : handleSetFavorite());
+	const { setCoursesState, instructors } = useContext(CoursesContext);
 
-	const handleSetFavorite = async () => {
-		setFavoriteState({
-			...favoriteState,
-			isLoading: true,
-		});
-		try {
-			await client.post<SetFavoriteResponse>(endpoints.favorite, {
-				course_id: id,
-				email: process.env.REACT_APP_EMAIL,
-			});
-			setCoursesState((prevState) => ({
-				...prevState,
-				instructors: instructors.map((instructor) =>
-					instructor.id === id ? { ...instructor, favorite: true } : instructor
-				),
-			}));
-			setFavoriteState({
-				...favoriteState,
-				isFavorite: true,
-			});
-		} catch (e) {
-			throw new Error(JSON.stringify(e, null, 2));
-		} finally {
-			setFavoriteState({
-				...favoriteState,
-				isLoading: false,
-			});
-		}
-	};
+	const handleOnClick = async () => {
+		setFavoriteState({ ...favoriteState, isLoading: true });
 
-	const handleDeleteFavorite = async () => {
-		setFavoriteState({
-			...favoriteState,
-			isLoading: true,
-		});
 		try {
-			await client.delete(endpoints.favorite, {
-				params: {
-					course_id: id,
-					email: process.env.REACT_APP_EMAIL,
-				},
-			});
+			isFavorite
+				? await client.delete(endpoints.favorite, {
+						params: {
+							course_id: id,
+							email: process.env.REACT_APP_EMAIL,
+						},
+				  })
+				: await client.post<SetFavoriteResponse>(endpoints.favorite, {
+						course_id: id,
+						email: process.env.REACT_APP_EMAIL,
+				  });
+
+			setFavoriteState({ ...favoriteState, isFavorite: !isFavorite });
 
 			setCoursesState((prevState) => ({
 				...prevState,
 				instructors: instructors.map((instructor) =>
-					instructor.id === id ? { ...instructor, favorite: false } : instructor
+					instructor.id === id ? { ...instructor, favorite: !isFavorite } : instructor
 				),
 			}));
-			setFavoriteState({
-				...favoriteState,
-				isFavorite: false,
-				isLoading: false,
-			});
 		} catch (e) {
 			throw new Error(JSON.stringify(e, null, 2));
 		} finally {
-			setFavoriteState({
-				...favoriteState,
-				isLoading: false,
-			});
+			setFavoriteState({ ...favoriteState, isLoading: false });
 		}
 	};
 
 	useEffect(() => {
-		setFavoriteState({
-			...favoriteState,
-			isFavorite: favorite,
-		});
+		setFavoriteState({ ...favoriteState, isFavorite: favorite });
 	}, [favorite]);
 
 	return { ...favoriteState, handleOnClick };
