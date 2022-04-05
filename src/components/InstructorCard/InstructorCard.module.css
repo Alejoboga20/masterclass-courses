@@ -14,8 +14,8 @@
 	background-color: #ff1a6633;
 }
 
-.instructor__container img {
-	width: 100%;
+.instructor__image img {
+	width: 130px;
 	height: 100%;
 	border-radius: 8px;
 	object-fit: cover;
@@ -43,6 +43,11 @@
 	width: 32px;
 	height: 32px;
 	margin: 8px;
+}
+
+.instructor__fav img {
+	width: 100%;
+	height: 100%;
 }
 
 .mobile__container {
