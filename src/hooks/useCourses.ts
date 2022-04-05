@@ -1,6 +1,6 @@
 import { GetCoursesResponse } from 'interfaces/Courses';
 import { useEffect, useState } from 'react';
-import { endpoints } from 'constants/common';
+import { endpoints, scrollOffset } from 'constants/common';
 import client from 'api/coursesApi';
 
 export const useCourses = () => {
@@ -8,31 +8,38 @@ export const useCourses = () => {
 		instructors: [],
 		isLoading: true,
 	});
+	const [instructorsList, setInstructorsList] = useState<GetCoursesResponse[]>([]);
+	const [page, setPage] = useState(1);
 
 	const loadData = async () => {
 		try {
-			const { data } = await client.get<GetCoursesResponse[]>(endpoints.courses, {
-				params: {
-					'page[limit]': 20,
-					'page[offset]': 1,
-				},
-			});
+			const { data } = await client.get<GetCoursesResponse[]>(endpoints.courses);
 
 			setCoursesState({
 				...coursesState,
 				instructors: data,
 				isLoading: false,
 			});
+
+			setInstructorsList(data.slice(0, page * scrollOffset));
 		} catch (e) {
 			throw new Error(JSON.stringify(e, null, 2));
 		}
+	};
+
+	const sliceData = () => {
+		setInstructorsList([...coursesState.instructors.slice(0, page * scrollOffset)]);
 	};
 
 	useEffect(() => {
 		loadData();
 	}, []);
 
-	return { ...coursesState, setCoursesState };
+	useEffect(() => {
+		sliceData();
+	}, [page, coursesState]);
+
+	return { ...coursesState, instructorsList, page, setCoursesState, setPage };
 };
 
 interface CoursesState {
