@@ -5,12 +5,21 @@ import { endpoints } from 'constants/common';
 import client from 'api/coursesApi';
 
 export const useFavorite = (favorite: boolean, id: number) => {
-	const [isFavorite, setIsFavorite] = useState(false);
+	const [favoriteState, setFavoriteState] = useState<FavoriteState>({
+		isFavorite: false,
+		isLoading: false,
+	});
+
 	const { setCoursesState, instructors } = useContext(CoursesContext);
+	const { isFavorite, isLoading } = favoriteState;
 
 	const handleOnClick = () => (isFavorite ? handleDeleteFavorite() : handleSetFavorite());
 
 	const handleSetFavorite = async () => {
+		setFavoriteState({
+			...favoriteState,
+			isLoading: true,
+		});
 		try {
 			await client.post<SetFavoriteResponse>(endpoints.favorite, {
 				course_id: id,
@@ -22,13 +31,25 @@ export const useFavorite = (favorite: boolean, id: number) => {
 					instructor.id === id ? { ...instructor, favorite: true } : instructor
 				),
 			}));
-			setIsFavorite(true);
+			setFavoriteState({
+				...favoriteState,
+				isFavorite: true,
+			});
 		} catch (e) {
 			throw new Error(JSON.stringify(e, null, 2));
+		} finally {
+			setFavoriteState({
+				...favoriteState,
+				isLoading: false,
+			});
 		}
 	};
 
 	const handleDeleteFavorite = async () => {
+		setFavoriteState({
+			...favoriteState,
+			isLoading: true,
+		});
 		try {
 			await client.delete(endpoints.favorite, {
 				params: {
@@ -43,15 +64,32 @@ export const useFavorite = (favorite: boolean, id: number) => {
 					instructor.id === id ? { ...instructor, favorite: false } : instructor
 				),
 			}));
-			setIsFavorite(false);
+			setFavoriteState({
+				...favoriteState,
+				isFavorite: false,
+				isLoading: false,
+			});
 		} catch (e) {
 			throw new Error(JSON.stringify(e, null, 2));
+		} finally {
+			setFavoriteState({
+				...favoriteState,
+				isLoading: false,
+			});
 		}
 	};
 
 	useEffect(() => {
-		setIsFavorite(favorite);
+		setFavoriteState({
+			...favoriteState,
+			isFavorite: favorite,
+		});
 	}, [favorite]);
 
-	return { isFavorite, handleOnClick };
+	return { ...favoriteState, handleOnClick };
 };
+
+interface FavoriteState {
+	isFavorite: boolean;
+	isLoading: boolean;
+}

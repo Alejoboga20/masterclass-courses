@@ -10,7 +10,7 @@ export const InstructorCard = ({
 	instructor_name,
 	title,
 }: IntructorCardProps) => {
-	const { handleOnClick, isFavorite } = useFavorite(favorite, id);
+	const { handleOnClick, isFavorite, isLoading } = useFavorite(favorite, id);
 	const [isMouseIn, setIsMouseIn] = useState(false);
 
 	const onMouseEnter = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => setIsMouseIn(true);
@@ -19,6 +19,7 @@ export const InstructorCard = ({
 	return (
 		<div
 			className={styles.instructor__container}
+			style={isLoading ? { filter: 'blur(4px)' } : {}}
 			onClick={handleOnClick}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeaver}
