@@ -4,7 +4,7 @@ export const Layout = ({ ListComponent }: LayoutProps) => {
 	return (
 		<>
 			<Header />
-			{ListComponent}
+			<div className='list__container'>{ListComponent}</div>
 		</>
 	);
 };

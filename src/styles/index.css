@@ -7,3 +7,9 @@
 body {
 	font-family: 'Montserrat', sans-serif;
 }
+
+.list__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
