@@ -40,7 +40,7 @@ export const InstructorCard = ({
 				)}
 			</div>
 
-			{isFavorite && (
+			{(isFavorite || isMouseIn) && (
 				<div className={styles.instructor__fav}>
 					<img src={Heart} alt='FavIcon' />
 				</div>
