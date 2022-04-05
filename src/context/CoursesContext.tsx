@@ -8,20 +8,26 @@ interface CoursesState {
 }
 
 interface CoursesContextProps extends CoursesState {
+	page: number;
+	instructorsList: GetCoursesResponse[];
 	setCoursesState: React.Dispatch<React.SetStateAction<CoursesState>>;
+	setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const CoursesContext = createContext({} as CoursesContextProps);
 
 export const CoursesProvider = ({ children }: CoursesProviderProps) => {
-	const { instructors, isLoading, setCoursesState } = useCourses();
+	const { instructors, instructorsList, isLoading, page, setCoursesState, setPage } = useCourses();
 
 	return (
 		<CoursesContext.Provider
 			value={{
 				instructors,
+				instructorsList,
 				isLoading,
+				page,
 				setCoursesState,
+				setPage,
 			}}
 		>
 			{children}
