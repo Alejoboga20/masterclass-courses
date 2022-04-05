@@ -11,7 +11,7 @@ export const useFavorite = (favorite: boolean, id: number) => {
 	});
 
 	const { setCoursesState, instructors } = useContext(CoursesContext);
-	const { isFavorite, isLoading } = favoriteState;
+	const { isFavorite } = favoriteState;
 
 	const handleOnClick = () => (isFavorite ? handleDeleteFavorite() : handleSetFavorite());
 

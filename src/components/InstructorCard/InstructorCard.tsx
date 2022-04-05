@@ -20,7 +20,7 @@ export const InstructorCard = ({
 		<div
 			className={styles.instructor__container}
 			style={isLoading ? { filter: 'blur(4px)' } : {}}
-			onClick={handleOnClick}
+			onClick={isLoading ? () => {} : handleOnClick}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeaver}
 		>
