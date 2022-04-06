@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useFavorite } from 'hooks/useFavorite';
 import { useDimensions } from 'hooks/useDimensions';
 import { MobileInstructorCard } from './MobileInstructorCard';
 import { DesktopInstructorCard } from './DesktopInstructorCard';
