@@ -9,3 +9,12 @@ export const endpoints = {
 };
 
 export const scrollOffset = 5;
+
+export const text = {
+	headerTitle: 'Course Catalog',
+	coursesLink: 'All',
+	favoritesLink: 'Favorites',
+
+	addFavorites: 'Add to favorites',
+	removeFavorites: 'Remove from favorites',
+};

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useFavorite } from 'hooks/useFavorite';
 import { IntructorCardProps } from './InstructorCard';
+import { text } from 'constants/common';
 import Heart from 'assets/heart.png';
 import styles from './InstructorCard.module.css';
 
@@ -37,7 +38,7 @@ export const DesktopInstructorCard = ({
 
 				{isMouseIn && (
 					<small className={styles.instructor__alert}>
-						{isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+						{isFavorite ? text.removeFavorites : text.addFavorites}
 					</small>
 				)}
 			</div>
