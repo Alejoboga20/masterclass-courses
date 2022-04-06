@@ -15,12 +15,17 @@
 	margin: 0 10%;
 }
 
-.header__navigation a {
+.header__link,
+.header__active {
 	display: inline-block;
 	margin-left: 16px;
-
 	text-decoration: none;
 	color: black;
+}
+
+.header__active {
+	color: #ff1a66;
+	font-weight: bold;
 }
 
 .header__navigation a:hover {

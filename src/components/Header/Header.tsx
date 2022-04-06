@@ -9,13 +9,13 @@ export const Header = () => {
 
 			<div className={styles.header__navigation}>
 				<NavLink
-					style={(navData) => (navData.isActive ? { color: '#ff1a66', fontWeight: 'bold' } : {})}
+					className={(navData) => (navData.isActive ? styles.header__active : styles.header__link)}
 					to={routePaths.courses}
 				>
 					{text.coursesLink}
 				</NavLink>
 				<NavLink
-					style={(navData) => (navData.isActive ? { color: '#ff1a66', fontWeight: 'bold' } : {})}
+					className={(navData) => (navData.isActive ? styles.header__active : styles.header__link)}
 					to={routePaths.favorites}
 				>
 					{text.favoritesLink}

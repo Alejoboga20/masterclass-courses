@@ -10,10 +10,10 @@ export const useDimensions = () => {
 
 		setDimensions();
 
-		window.addEventListener('resize', () => setDimensions());
+		window.addEventListener('resize', setDimensions);
 
 		return () => {
-			window.removeEventListener('resize', () => setDimensions());
+			window.removeEventListener('resize', setDimensions);
 		};
 	}, []);
 
