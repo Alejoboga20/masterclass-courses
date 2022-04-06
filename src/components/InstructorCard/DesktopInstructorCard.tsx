@@ -20,8 +20,7 @@ export const DesktopInstructorCard = ({
 
 	return (
 		<div
-			className={styles.instructor__container}
-			style={isLoading ? { filter: 'blur(4px)' } : {}}
+			className={isLoading ? styles.instructor__loading : styles.instructor__container}
 			onClick={isLoading ? () => {} : handleOnClick}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeaver}

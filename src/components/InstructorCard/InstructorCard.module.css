@@ -1,4 +1,5 @@
-.instructor__container {
+.instructor__container,
+.instructor__loading {
 	border-radius: 8px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	cursor: pointer;
@@ -8,6 +9,10 @@
 	position: relative;
 	transition: 0.3s;
 	width: 80%;
+}
+
+.instructor__loading {
+	filter: blur(4px);
 }
 
 .instructor__container:hover {
