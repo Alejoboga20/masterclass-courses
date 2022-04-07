@@ -3,19 +3,15 @@ import { MobileInstructorCard } from './MobileInstructorCard';
 import { DesktopInstructorCard } from './DesktopInstructorCard';
 
 export const InstructorCard = (props: IntructorCardProps) => {
-	const { isMobileDevice } = useDimensions();
+  const { isMobileDevice } = useDimensions();
 
-	return (
-		<>
-			{isMobileDevice ? <MobileInstructorCard {...props} /> : <DesktopInstructorCard {...props} />}
-		</>
-	);
+  return <>{isMobileDevice ? <MobileInstructorCard {...props} /> : <DesktopInstructorCard {...props} />}</>;
 };
 
 export interface IntructorCardProps {
-	favorite: boolean;
-	id: number;
-	instructor_image_url: string;
-	instructor_name: string;
-	title: string;
+  favorite: boolean;
+  id: number;
+  instructor_image_url: string;
+  instructor_name: string;
+  title: string;
 }

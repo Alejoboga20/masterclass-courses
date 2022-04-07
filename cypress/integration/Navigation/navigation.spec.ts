@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { testCases } from './navigation.td';
+import { testCases } from '../../fixtures/navigation.td';
 
 context('Navigation Suite', () => {
   before(() => {
